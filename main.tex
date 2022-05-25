@@ -1,0 +1,218 @@
+\documentclass[a4paper,12pt, titlepage]{report} % размер бумагиё устанавливаем А4, шрифт 12пунктов
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc} % включаем свою кодировку: koi8-r или utf8 в UNIX, cp1251 в Windows
+\usepackage[english,russian]{babel} % используем русский и английский языки с переносами
+\usepackage{amssymb,amsfonts,amsmath,mathtext,cite,enumerate,float} % подключаем нужные пакеты расширений
+\usepackage[dvips]{graphicx} % хотим вставлять в диплом рисунки?
+\usepackage{tabularx}
+\usepackage{makecell}
+% \usepackage{hyperref}
+\graphicspath{{figure/}} % путь к рисункам
+
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1.} % Заменяем библиографию с квадратных скобок на точку:
+\makeatother
+
+% пакет для расположения картинок в ряд
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=2.5cm} % левое поле
+\geometry{right=1.5cm} % правое поле
+\geometry{top=2cm} % верхнее поле
+\geometry{bottom=2cm} % нижнее поле
+
+\renewcommand{\theenumi}{\arabic{enumi}.} % Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumi}{\arabic{enumi}.} % Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumii}{.\arabic{enumii}.} % Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.} % Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumiii}{.\arabic{enumiii}.} % Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.} % Меняем везде перечисления на цифра.цифра
+
+\usepackage[onehalfspacing]{setspace} %"умное" расстояние между строк - установить 1.5 интервала от нормального, эквивалентно
+
+%\usepackage{floatrow} 
+\usepackage{indentfirst} % Отделять первую строку раздела абзацным отступом тоже
+
+\newcommand{\empline}{\mbox{}\newline}
+\newcommand{\likechapterheading}[1]{
+	\begin{center}
+		\textbf{\MakeUppercase{#1}}
+	\end{center}
+}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\filcenter}{\MakeUppercase{\chaptertitlename} \thechapter}{8pt}{\bfseries \MakeUppercase}{}\titleformat{\section}{\normalsize\bfseries}   {\thesection.}{1em}{}\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{1em}{}% Настройка вертикальных и горизонтальных отступов
+\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*4}{*1}
+\titlespacing*{\subsection}{\parindent}{*4}{*1}
+
+\makeatletter
+\renewcommand{\@dotsep}{2}\newcommand{\l@likechapter}[2]{{\bfseries\@dottedtocline{1}{0pt}{0pt}{#1}{#2} }} \makeatother \newcommand{\likechapter}[1]{
+\newpage \clearpage \likechapterheading{#1}
+
+\addcontentsline{toc}{likechapter}{\MakeUppercase{#1}}}
+
+\usepackage{tocloft}
+\renewcommand\contentsname{Содержание}
+\renewcommand{\cfttoctitlefont}{\newpage\hspace{0.38\textwidth}\bfseries\MakeUppercase } % Оформление надписи Оглавление
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+%\renewcommand{\cftaftertoctitle}{\mbox{}\hfill \\ \mbox{}\hfill{\footnotesize Стр.}\vspace{-2.5em}} % Добавим надпись стр.
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % Отточия после глав
+\renewcommand{\cftchapaftersnum}{.} % Точка после номера главы
+\renewcommand{\cftsecaftersnum}{.} % Точка после номера параграфа
+
+\renewcommand{\cftchapfont}{\normalsize\bfseries \MakeUppercase{\chaptername} } % Оформления надписи Глава
+\renewcommand{\cftsecfont}{\hspace{31pt}} % Сдвиг названия секции от левого края
+\renewcommand{\cftsubsecfont}{\hspace{1pt}}
+\renewcommand{\cftbeforechapskip}{1em}
+\renewcommand{\cftparskip}{-1mm}  
+\renewcommand{\cftdotsep}{1} \setcounter{tocdepth}{1} % Задать глубину оглавления — до subsection включительно
+
+% Оформление подписи к рисункам и таблицам
+\usepackage[font=small, tableposition=top]{caption}
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelSeparator{gost}{. }
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure}
+\captionsetup[table]{labelformat=gosttable}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+
+\usepackage[title,titletoc]{appendix}
+\titleformat{\paragraph}[display]{\filcenter}{\MakeUppercase{\chaptertitlename} \thechapter}{8pt}{\bfseries}{}
+\titlespacing*{\paragraph}{0pt}{-30pt}{8pt}
+\newcommand{\append}[1]{\clearpage
+\stepcounter{chapter}
+\paragraph{\MakeUppercase{#1}}
+\empline     \addcontentsline{toc}{likechapter}{\MakeUppercase{\chaptertitlename~\Asbuk{chapter}.\;#1}}}
+
+\bibliographystyle{utf8gost705u}
+%\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[square,numbers,sort&compress]{natbib}
+\renewcommand{\bibnumfmt}[1]{#1.\hfill} % нумерация источников в самом списке — через точку
+\renewcommand{\bibsection}{\likechapter{Список литературы}} % заголовок специального раздела
+\setlength{\bibsep}{0pt}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+  numbers=left,               % где поставить нумерацию строк (слева\справа)
+  numberstyle=\tiny  
+}
+
+\lstdefinestyle{customasm}{
+  belowcaptionskip=1\baselineskip,
+  frame=L,
+  xleftmargin=\parindent,
+  language=[x86masm]Assembler,
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\itshape\color{purple!40!black},
+}
+
+\lstset{escapechar=@,style=customc}
+
+\usepackage[utf8]{inputenc}%включаем свою кодировку: koi8-r или utf8 в UNIX, cp1251 в Windows
+
+\usepackage{enumitem}
+\makeatletter
+\AddEnumerateCounter{\asbuk}{\@asbuk}{м)}
+\makeatother
+\setlist{nolistsep}
+\renewcommand{\labelitemi}{-}
+\renewcommand{\labelenumi}{\asbuk{enumi})}
+\renewcommand{\labelenumii}{\arabic{enumii})}
+
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+%\newtheorem{thm}{Theorem}[subsection]
+%\newtheorem{defn}[thm]{Definition}
+\newtheorem{St}{Утверждение}
+\newtheorem{Th}{Теорема}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Lm}{Лемма}
+
+\begin{document}
+	\singlespacing % Одинарный междустрочный интервал
+	\input{Title} % Это титульный лист
+	\setcounter{page}{2} % Нумерация страниц со 2-й, 1-й является титульная страница
+	\onehalfspacing % Полуторный междустрочный интервал
+	\setlength{\parindent}{1.25cm} % Абзацный отступ
+
+	\input{Annotation}
+	\def\contentsname{Содержание} % "Содержание" вместо "Оглавление"
+	\def\bibname{Список литературы}
+	\tableofcontents % Это оглавление, которое генерируется автоматически
+	\input{Introduction}
+	\input{Part1}
+	\input{Part2}
+	\input{Conclusion}
+  \begin{thebibliography}{10}
+    \def\selectlanguageifdefined#1{
+    \expandafter\ifx\csname date#1\endcsname\relax
+    \else\language\csname l@#1\endcsname\fi}
+    \ifx\undefined\url\def\url#1{{\small #1}}\else\fi
+    \ifx\undefined\BibUrl\def\BibUrl#1{\url{#1}}\else\fi
+    \ifx\undefined\BibAnnote\long\def\BibAnnote#1{(#1)}\else\fi
+    \ifx\undefined\BibEmph\def\BibEmph#1{\emph{#1}}\else\fi
+
+    \bibitem{Hoppensteadt:Izhikevich}
+    F. C. Hoppensteadt and E. M. Izhikevich, Weakly connected neural networks, vol. 126 (Springer Science Business Media, 2012).
+
+    \bibitem{Tinsley:Nkomo}
+    M. R. Tinsley, S. Nkomo, and K. Showalter, Nature Physics 8, 662 (2012).
+
+    \bibitem{Ding:Belykh}
+    J. Ding, I. Belykh, A. Marandi, and M.-A. Miri, Physical Review Applied 12, 054039 (2019).
+
+    \bibitem{Dorfler:Chertkov}
+    F. Dörfler, M. Chertkov, and F. Bullo, Proceedings of the National Academy of Sciences 110, 2005 (2013).
+    
+    \bibitem{Kuramoto}
+    Y. Kuramoto, in International Symposium on Mathemat- ical Problems in Theoretical Physics (Springer, 1975), pp. 420–422.
+    
+    \bibitem{Strogatz} 
+    S. H. Strogatz, Physica D: Nonlinear Phenomena 143, 1 (2000).
+    
+
+
+    
+    \bibitem{Acebron:Bonilla}
+    J. A. Acebrón, L. L. Bonilla, C. J. P. Vicente, F. Ri- tort, and R. Spigler, Reviews of Modern Physics 77, 137 (2005).
+    
+    \bibitem{Barreto:Hunt}
+    E. Barreto, B. Hunt, E. Ott, and P. So, Physical Review E 77, 036107 (2008).
+    
+    \bibitem{Ott:Antonsen}
+    E. Ott and T. M. Antonsen, Chaos: An Interdisciplinary Journal of Nonlinear Science 18, 037113 (2008).
+    
+    \bibitem{Hong:Chate}
+    H. Hong, H. Chaté, H. Park, and L.-H. Tang, Physical Review Letters 99, 184101 (2007).
+
+    \bibitem{Pikovsky:Rosenblum}
+    A. Pikovsky and M. Rosenblum, Physical Review Letters 101, 264103 (2008).
+
+    \bibitem{Maistrenko:Popovych}
+    Y. Maistrenko, O. Popovych, O. Burylko, and P. Tass, Physical Review Letters 93, 084102 (2004).
+
+    \bibitem{Dorfler:Bullo}
+    F. Dörfler and F. Bullo, SIAM Journal on Applied Dy- namical Systems 10, 1070 (2011).
+
+    \bibitem{Martens:Barreto}
+    E. A. Martens, E. Barreto, S. Strogatz, E. Ott, P. So, and T. Antonsen, Physical Review E 79, 026204 (2009).
+
+  \end{thebibliography}
+\end{document}
