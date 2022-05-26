@@ -1,0 +1,24 @@
+\begin{chapter}{Программный комплекс}
+	Исходный код доступен по ссылке: https://github.com/unn-dynamic-systems
+	
+	Программный комплекс, описываемый в этой главе, позволяет находить вращательные движения и
+	определять их устойчивость в системах связанных элементов, которые описываются системой однородных
+	дифференциальных уравнений. Основная идея была описана в предыдущей работе \cite{Khorkin}.
+
+
+\section{Описание реализации}
+Программный комплекс написан на языке программирования python с использованием таких
+библиотек как scipy \cite{scipy}, numpy \cite{numpy} и numba \cite{numba}.
+\section{Интерфейсы}
+
+\begin{verbatim}
+	(function) find_limit_cycle: (RS, args, IC0, T0, phase_period: float = 2 * mt.pi,
+									h: float = 0.001, eps: float = 0.001) -> tuple
+\end{verbatim}
+
+\begin{verbatim}
+	(function) get_monogrommy_matrix: (rs_orig, rs_linear, q0_limit_cycle: ndarray,
+	T, args_linear, args_orig, h_integrate: float = 0.001) -> ndarray
+\end{verbatim}
+
+\end{chapter}
