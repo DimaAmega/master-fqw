@@ -1,6 +1,5 @@
 \begin{chapter}{Программный комплекс}
-	Исходный код доступен по ссылке: https://github.com/unn-dynamic-systems/rotary-states
-	
+
 	Программный комплекс, описываемый в этой главе, позволяет находить вращательные движения и
 	определять их устойчивость в системах связанных элементов, которые описываются системой однородных
 	дифференциальных уравнений. Основная идея была описана в предыдущей работе \cite{Khorkin}.
@@ -8,19 +7,34 @@
 \section{Описание реализации}
 Программный комплекс написан на языке программирования python с использованием таких
 библиотек как scipy \cite{scipy}, numpy \cite{numpy} и numba \cite{numba}.
+Были реализованы три главных численных метода: интегрирование систем методом Рунге-Кутты 4-го порядка, метод Ньютона для
+многомерного случая а также расчет матрицы Монодромии. Реализация этих методов была необходима для достижения 
+максимальной производительности. 
 Особый интерес представляет библиотека numba, которая реализует процедуру 
 компиляции python кода в машинный код во время исполнения (jit compilation).
+В частности, компиляция во время исполнения выполняется для функции описывающую динамику системы.
 Благодаря этому нахождение вращательных движений и определение их устойчивости реализованно эффективно.
-\section{Интерфейс}
+В программном комплексе присутствует набор тестов \cite{testing}, проверяющих корректность работы главных алгоритмов.
+% \section{Интерфейс}
 
-\begin{verbatim}
-	(function) find_limit_cycle: (RS, args, IC0, T0, phase_period: float = 2 * mt.pi,
-									h: float = 0.001, eps: float = 0.001) -> tuple
-\end{verbatim}
+% \section{Интерфейс}
 
-\begin{verbatim}
-	(function) get_monogrommy_matrix: (rs_orig, rs_linear, q0_limit_cycle: ndarray,
-	T, args_linear, args_orig, h_integrate: float = 0.001) -> ndarray
-\end{verbatim}
+% \begin{verbatim}
+% 	(function) find_limit_cycle: (RS, args, IC0, T0, phase_period: float = 2 * mt.pi,
+% 									h: float = 0.001, eps: float = 0.001) -> tuple
+% \end{verbatim}
+
+% \begin{verbatim}
+% 	(function) get_monogrommy_matrix: (rs_orig, rs_linear, q0_limit_cycle: ndarray,
+% 	T, args_linear, args_orig, h_integrate: float = 0.001) -> ndarray
+% \end{verbatim}
+
+
+\section{Ссылки на ресурсы}
+Исходный код: https://github.com/unn-dynamic-systems/rotary\_states/
+
+Проект на pypi: https://pypi.org/project/rotary\_states/
+
+Тестирование: https://github.com/unn-dynamic-systems/rotary\_states/actions/
 
 \end{chapter}
